@@ -112,6 +112,8 @@ func _on_file_dialog_files_selected(paths):
 			var file_name = save_dir + "/" + circ.title + ".circ"
 			save_data(file_name, circ)
 			results.append(file_name)
+		else:
+			results.append("Error loading " + path)
 	$VB/Results.text = "\n".join(results)
 
 
@@ -167,3 +169,7 @@ func save_data(file_name, data):
 	if save_file:
 		var json_string = JSON.stringify(data, "\t")
 		save_file.store_line(json_string)
+
+
+func _on_licence_button_pressed():
+	$LicencePanel.popup_centered()

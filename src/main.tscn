@@ -2,14 +2,47 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_h33s1"]
 
-[node name="Main" type="Control"]
-layout_mode = 3
+[node name="Main" type="CenterContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_h33s1")
+
+[node name="VB" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="VB"]
+layout_mode = 2
+text = "This utility converts Logic Simulator v1 files to v2"
+
+[node name="SavePathButton" type="Button" parent="VB"]
+layout_mode = 2
+text = "Select folder to save to"
+
+[node name="UserButton" type="Button" parent="VB"]
+layout_mode = 2
+text = "Select user area files"
+
+[node name="FileSystemButton" type="Button" parent="VB"]
+layout_mode = 2
+text = "Select file system files"
+
+[node name="Results" type="Label" parent="VB"]
+layout_mode = 2
+
+[node name="LicenceButton" type="Button" parent="VB"]
+layout_mode = 2
+text = "Licence"
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+title = "Select a Directory"
+size = Vector2i(782, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open File(s)"
@@ -21,36 +54,84 @@ access = 2
 filters = PackedStringArray("*.res ; v1.0 Logic Simulator Files")
 show_hidden_files = true
 
-[node name="VB" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 20
+[node name="LicencePanel" type="PopupPanel" parent="."]
+title = "Licence Information"
+size = Vector2i(500, 560)
+visible = true
+unresizable = false
+borderless = false
 
-[node name="UserButton" type="Button" parent="VB"]
-layout_mode = 2
-text = "Select user area files"
+[node name="RichTextLabel" type="RichTextLabel" parent="LicencePanel"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 496.0
+offset_bottom = 556.0
+text = "MIT License
 
-[node name="FileSystemButton" type="Button" parent="VB"]
-layout_mode = 2
-text = "Select file system files"
+Copyright (c) 2023 Andrew Wilkes
 
-[node name="SavePathButton" type="Button" parent="VB"]
-layout_mode = 2
-text = "Select folder to save to"
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the \"Software\"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-[node name="Results" type="Label" parent="VB"]
-layout_mode = 2
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-[node name="SaveDialog" type="FileDialog" parent="."]
-title = "Open a Directory"
-size = Vector2i(782, 400)
-ok_button_text = "Select Current Folder"
-file_mode = 2
-access = 2
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-[connection signal="files_selected" from="FileDialog" to="." method="_on_file_dialog_files_selected"]
+--------
+This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2007-2023 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2023s Godot Engine contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \\\"AS IS\\\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+--------
+FreeType
+
+Portions of this software are copyright © 2021 The FreeType Project (www.freetype.org). All rights reserved.
+
+--------
+ENet
+Godot includes the ENet library to handle high-level multiplayer.
+
+Copyright (c) 2002-2020 Lee Salzman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \\\"AS IS\\\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---------
+MBedTLS
+
+For using SSL (usually through HTTP requests), the MBedTLS Apache license:
+
+Copyright The Mbed TLS Contributors
+
+Licensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License."
+
+[connection signal="pressed" from="VB/SavePathButton" to="." method="_on_save_path_button_pressed"]
 [connection signal="pressed" from="VB/UserButton" to="." method="_on_user_button_pressed"]
 [connection signal="pressed" from="VB/FileSystemButton" to="." method="_on_file_system_button_pressed"]
-[connection signal="pressed" from="VB/SavePathButton" to="." method="_on_save_path_button_pressed"]
+[connection signal="pressed" from="VB/LicenceButton" to="." method="_on_licence_button_pressed"]
 [connection signal="dir_selected" from="SaveDialog" to="." method="_on_save_dialog_dir_selected"]
+[connection signal="files_selected" from="FileDialog" to="." method="_on_file_dialog_files_selected"]
